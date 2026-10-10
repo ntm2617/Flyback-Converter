@@ -115,5 +115,4 @@ Circuit:
 ## ✨ Acknowledgements
 
 This project was successfully designed, simulated, assembled, and validated as **a team effort** for the **Power Electronics** course. Special thanks to the course instructor and laboratory staff for equipment and component support.
-```
 
