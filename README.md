@@ -38,11 +38,9 @@ The primary objective was pushing switching frequency to **300 kHz** to drastica
 ## 📝 Engineering Design & Key Trade-offs
 The converter is designed in **Discontinuous Conduction Mode (DCM)**.
 
-### What is DCM? ($t_1$, $t_2$, and $t_3$)
-In each switching period ($T = 1 / f_{sw}$), the cycle is divided into three distinct intervals:
-* **$t_1$ (FET ON):** Energy is stored in the transformer core; diode is reverse-biased.
-* **$t_2$ (FET OFF / Diode ON):** Energy is transferred to the load; secondary current ramps down to zero.
-* **$t_3$ (Idle Dead-Time):** **Both FET and diode are OFF ($I = 0$). This dead-time is what defines DCM!** Having an intentional $t_3$ dead-band eliminates diode reverse-recovery losses and ensures zero-current turn-on (ZCS) for the MOSFET.
+### 🔎 Why Discontinuous Conduction Mode (DCM)?
+
+DCM was selected as a **course requirement**. In DCM, the inductor current resets to zero every cycle, creating an idle dead-time ($t_3$) before the next switch-on. This enables **zero-current switching (ZCS)** and eliminates diode reverse-recovery losses ,both critical at 300 kHz. It also requires significantly less inductance than CCM , allowing the use of a compact **EF20 ferrite core** instead of a larger one. The trade-off is higher peak current, which was easily handled by the IRF3710 (rated 57A).
 
 ### 1. 300 kHz Switching Frequency Selection
 
@@ -107,8 +105,9 @@ Circuit:
 ## 🎯 Key Lessons Learned
 
 1. **Gate Drive at High Frequency:**  Without a dedicated driver, the gate waveform distorts into a slow 'shark fin' RC curve, keeping the MOSFET stuck in its linear region. The gate driver helps eliminating the shark fin and cutting switching losses.
-2. **Trade-off between Magnetics Size and Efficiency:** While higher switching frequency reduces core size and turn count, switching losses ($P_{sw} \propto f_{sw}$) and snubber dissipation increase proportionally.
+2. **Trade-off between Magnetics Size and Efficiency:** While higher switching frequency reduces core size and turn count, switching losses and snubber dissipation increase proportionally.
 3. **Transformer Construction:** Leakage inductance was the single most sensitive parameter; loose coupling creates destructive $V_{ds}$ voltage spikes, demanding aggressive snubber clamping at the expense of power efficiency.
+4. **High-Frequency Layout Lesson:** At 300 kHz, every centimeter of wire or PCB trace acts as a parasitic inductor. Because voltage spikes scale with $V = L_{parasitic} \cdot \frac{di}{dt}$, and $di/dt$ is extremely large at high frequency, even a few centimeters of extra wire can produce significant ringing, voltage spikes. Keeping all components as **short and tight as possible** was essential to achieving clean waveforms.
 
 ---
 
