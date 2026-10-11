@@ -75,7 +75,7 @@ High-frequency ripple is dominated by capacitor ESR rather than bulk capacitance
 | :--- | :--- | :--- |
 | **Main Switch** | `IRF3710` | 100V, 57A N-Channel MOSFET TO-220 |
 | **Gate Driver** | `TC4420COA` | 6A High-Speed Low-Side Gate Driver |
-| **Rectifier Diode** | `SDT5H100LP5-7` | 100V, 5A Trench Schottky Diode ($V_F \approx 0.51\text{V}$) |
+| **Rectifier Diode** | `SDT5H100LP5` | 100V, 5A Trench Schottky Diode (low VF) |
 | **Snubber Diode** | `SK310A` | 100V, 3A Fast Schottky Diode |
 | **Transformer Core** | `E20/10/6 (EF20)` | EE20 Bobbin, 0.4 mm Air Gap|
 | **Output Capacitors** | MLCC Bank | $22\,\mu\text{F} + 10\,\mu\text{F} + 2 \times 47\text{ nF}$ (Parallel Low-ESR) |
